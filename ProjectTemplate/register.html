@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function rAccount(fName, lName, email, uName, pwd,supUse) {
+            var webMethod = "ProjectServices.asmx/NAccount";
+            var parameters = "{\"fName\":\"" + encodeURI(fName) + "\",\"lName\":\"" + encodeURI(lName) +
+                "\",\"email\":\"" + encodeURI(email) + "\",\"uName\":\"" + encodeURI(uName) + "\",\"pwd\":\"" + encodeURI(pwd) + "\",\"supUse\":\"" + encodeURI(supUse) + "\"}";
+            window.alert(parameters);
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var responseFromServer = msg.d;
+                    if (responseFromServer == true) {
+                        alert("Created Account");
+                        window.open("index.html", "_self");
+                    }
+                    else {
+                        alert("Duplicated information, please try again.");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                }
+            })
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <div class="titleContainer"></div>
+    <div class="contentContainer">
+
+
+        <h1>Create an Account!</h1>
+        <hr />
+
+        <div>
+            <input type="text" id="firstName" placeholder="First Name">
+        </div>
+        <p></p>
+
+        <div>
+            <input type="text" id="lastName" placeholder="Last Name">
+        </div>
+        <p></p>
+
+        <div>
+            <input type="text" id="logonId" placeholder="Username">
+        </div>
+        <p></p>
+
+        <div>
+            <input type="text" id="logonPassword" placeholder="Password">
+        </div>
+        <p></p>
+
+        <div>
+            <input type="text" id="email" placeholder="Email">
+        </div>
+        <p></p>
+        <div>
+            <input type="radio" id="sUser" name="superUser" value="1">
+            <label for="sUser">Company use account</label><br>
+            <input type="radio" id="nSup" name="superUser" value="0" checked="checked">
+            <label for="nSup">Personal account</label><br>
+        </div>
+        <p></p>
+
+        <hr />
+
+        <div>
+            <button onclick="rAccount(document.getElementById('firstName').value,
+                document.getElementById('lastName').value,
+                document.getElementById('email').value,
+                document.getElementById('logonId').value,
+                document.getElementById('logonPassword').value, $('input[name=superUser]:checked').val())">
+                Register
+            </button>
+        </div>
+    </div>
+</body>
+</html>
