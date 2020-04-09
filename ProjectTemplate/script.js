@@ -136,7 +136,8 @@ function getUid(uName) {
         dataType: "json",
         success: function (msg) {
             uid = msg.d;
-            
+            alert(uid);
+             
             
         },
         error: function (e) {
@@ -151,7 +152,7 @@ function displayPic() {
     var element = document.getElementById("PicUrl");
     let uid = getUid(sessionUsername);
     
-    console.log(profilesArray);
+    
 
 
     for (var i = 0; i < profilesArray.length; i++) {
@@ -163,7 +164,9 @@ function displayPic() {
 
 function updateProfile() {
     var sessionUsername = getCookie('username');
+    alert(sessionUsername);
     let uid = getUid(sessionUsername);
+    alert(uid);
     var webMethod = "ProjectServices.asmx/updateProfile";
     var parameters = "{\"description\":\"" + encodeURI(document.getElementById("description").value) + "\",\"company\":\"" + encodeURI(document.getElementById("companyName").value) +
         "\",\"education\":\"" + encodeURI(document.getElementById("education").value) + "\",\"url\":\"" + encodeURI(document.getElementById("picture").value) + "\",\"uid\":\"" + encodeURI(uid) + "\"}";
@@ -171,7 +174,8 @@ function updateProfile() {
 
     $.ajax({
 
-        type: "POST",        url: webMethod,
+        type: "POST",
+        url: webMethod,
         data: parameters,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
