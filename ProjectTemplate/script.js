@@ -107,6 +107,8 @@ function getProfiles() {
         success: function (msg) {
             if (msg.d.length > 0) {
                 profilesArray = msg.d;
+                console.log(profilesArray);
+                console.log(1);
             }
         },
         error: function (e) {
@@ -124,7 +126,7 @@ function logOff() {
 
 function getUid(uName) {
     var webMethod = "ProjectServices.asmx/GetUserId";
-    var parameters = "{\"UserName\":\"" + encodeURI(uName) + "\"}";
+    var parameters = "{\"uName\":\"" + encodeURI(uName) + "\"}";
     var uid;
     $.ajax({
         type: "POST",
@@ -133,9 +135,9 @@ function getUid(uName) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-            if (msg.d.length > 0) {
-                uid = msg.d;
-            }
+            uid = msg.d;
+            
+            
         },
         error: function (e) {
             alert("failed to get userID.")
@@ -143,11 +145,15 @@ function getUid(uName) {
     });
     return uid;
 }
+
 function displayPic() {
     var sessionUsername = getCookie('username');
     var element = document.getElementById("PicUrl");
     let uid = getUid(sessionUsername);
-    getProfiles();
+    
+    console.log(profilesArray);
+
+
     for (var i = 0; i < profilesArray.length; i++) {
         if (uid == profilesArray[i].uid) {
             element.src = profilesArray[i].url;
