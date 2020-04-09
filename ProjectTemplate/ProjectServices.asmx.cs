@@ -153,10 +153,103 @@ namespace ProjectTemplate
             return success;
         }
 
-       
+
+
+        [WebMethod(EnableSession = true)]
+        public Profile[] getProfiles() {
+            DataTable sqlDt = new DataTable("profile");
+
+            string sqlSelect = "select PID, description, company_name, education, profile_pic, UID from Profiles order by PID";
+
+            MySqlConnection con = new MySqlConnection(getConString());
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, con);
+
+            //gonna use this to fill a data table
+            MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+            //filling the data table
+            sqlDa.Fill(sqlDt);
+
+            //loop through each row in the dataset, creating instances
+            //of our container class Account.  Fill each acciount with
+            //data from the rows, then dump them in a list.
+            List<Profile> profiles = new List<Profile>();
+            for (int i = 0; i < sqlDt.Rows.Count; i++)
+            {
+                profiles.Add(new Profile
+                {  
+                    pid = Convert.ToInt32(sqlDt.Rows[i]["PID"]),
+                    companyName = sqlDt.Rows[i]["description"].ToString(),
+                    education = sqlDt.Rows[i]["company_name"].ToString(),
+                    picture = sqlDt.Rows[i]["education"].ToString(),
+                    description = sqlDt.Rows[i]["profile_pic"].ToString(),
+                    uid = Convert.ToInt32(sqlDt.Rows[i]["UID"])
+                });
+            }
+            //convert the list of accounts to an array and return!
+            
+        
+
+            return profiles.ToArray();
+        }
+
+        [WebMethod(EnableSession = true)]
+        public Int32 GetUserId(string uName)
+        {
+            Int32 uid = -1;
+            string sqlSelect = "SELECT UID FROM Users Where UserName ='" + uName + "'";
+            /*WHERE UserName = '" + uName + "'"*/
+
+            MySqlConnection con = new MySqlConnection(getConString());
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, con);
+            MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+            DataTable sqlDt = new DataTable();
+            sqlDa.Fill(sqlDt);
+            if (sqlDt.Rows.Count > 0)
+            {
+                uid = Convert.ToInt32(sqlDt.Rows[0]["UID"]);
+            }
+            return uid;
+
+        }
+
+
+        [WebMethod(EnableSession = true)]
+        public bool updateProfile(string description, string company, string education, string url, string uid) {
+            bool success = false;
+            string sqlSelect = "SELECT * FROM Profiles WHERE UID = '" + uid + "'";
+            MySqlConnection con = new MySqlConnection(getConString());
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, con);
+            MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+            DataTable sqlDt = new DataTable();
+            sqlDa.Fill(sqlDt);
+            if (sqlDt.Rows.Count > 0) {
+                //UPDATE t SET lastname = 'Alfred Schmidt', password = '123' WHERE firstname = 'Pramod';
+                string sqlUpdate = "UPDATE Profiles SET description='" + description + "', company_name='" + company + "', education='" + 
+                                education + "', profile_pic='" + url + "' WHERE UID=" + uid + ";";
+
+                MySqlConnection con3 = new MySqlConnection(getConString());
+                MySqlCommand sqlCommand3 = new MySqlCommand(sqlUpdate, con3);
+                con3.Open();
+                sqlCommand3.ExecuteNonQuery();
+                con3.Close();
+                success = true;
+            }
+            else {
+        
+                string sqlInsert = "INSERT INTO Profiles(`PID`,`description`,`company_name`,`education`,`profile_pic`,`UID`) Values(default, '" + description + "', '"
+                     + company + "','" + education + "','" + url + "','" + uid + "')";
+                MySqlConnection con2 = new MySqlConnection(getConString());
+                MySqlCommand sqlCommand2 = new MySqlCommand(sqlInsert, con2);
+                con2.Open();
+                sqlCommand2.ExecuteNonQuery();
+                con2.Close();
+                success = true;
+            }
 
 
 
+            return success;
+        }
 
     }
 }
