@@ -4,7 +4,7 @@ var testPass = "test";
 
 var sessionUsername = "";
 var profilesArray;
-var uid = "";
+
 
 
 // This function will be used when using database credentials
@@ -120,11 +120,12 @@ function logOff() {
     window.open("index.html", "_self");
 }
 
-function getUID(uName)
-{
+
+
+function getUid(uName) {
     var webMethod = "ProjectServices.asmx/GetUserId";
-    var parameters = "{\"uName\":\"" + encodeURI(uName) + "\"}"
-    alert(parameters);
+    var parameters = "{\"UserName\":\"" + encodeURI(uName) + "\"}";
+    var uid;
     $.ajax({
         type: "POST",
         url: webMethod,
@@ -137,16 +138,15 @@ function getUID(uName)
             }
         },
         error: function (e) {
-            alert("Error");
+            alert("failed to get userID.")
         }
     });
+    return uid;
 }
-
-
 function displayPic() {
     var sessionUsername = getCookie('username');
     var element = document.getElementById("PicUrl");
-    getUID(sessionUsername);
+    let uid = getUid(sessionUsername);
     getProfiles();
     for (var i = 0; i < profilesArray.length; i++) {
         if (uid == profilesArray[i].uid) {
@@ -157,10 +157,10 @@ function displayPic() {
 
 function updateProfile() {
     var sessionUsername = getCookie('username');
-    getUID(sessionUsername);
+    let uid = getUid(sessionUsername);
     var webMethod = "ProjectServices.asmx/updateProfile";
-    var parameters = "{\"description\":\"" + encodeURI(document.getElementById("description").innerText) + "\",\"company\":\"" + encodeURI(document.getElementById("companyName").innerHTML) +
-        "\",\"education\":\"" + encodeURI(document.getElementById("education").innerHTML) + "\",\"url\":\"" + encodeURI(document.getElementById("picture").innerText) + "\",\"uid\":\"" + encodeURI(uid) + "\"}";
+    var parameters = "{\"description\":\"" + encodeURI(document.getElementById("description").value) + "\",\"company\":\"" + encodeURI(document.getElementById("companyName").value) +
+        "\",\"education\":\"" + encodeURI(document.getElementById("education").value) + "\",\"url\":\"" + encodeURI(document.getElementById("picture").value) + "\",\"uid\":\"" + encodeURI(uid) + "\"}";
     alert(parameters);
 
     $.ajax({

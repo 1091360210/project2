@@ -195,7 +195,7 @@ namespace ProjectTemplate
         [WebMethod(EnableSession = true)]
         public Int32 GetUserId(string uName)
         {
-            Int32 uid = -1;
+            Int32 uid = 0;
             string sqlSelect = "SELECT UID FROM Users Where UserName ='" + uName + "'";
             /*WHERE UserName = '" + uName + "'"*/
 
