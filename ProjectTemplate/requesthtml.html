@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="script.js"></script>
+	<script>
+		var menteeName = getCookie('username');
+		var usersArray;
+		var requestArray;
+		
+
+		function updateRequest(rid, status) {
+			var webMethod = "ProjectServices.asmx/updateRequest";
+			var parameters = "{\"rid\":\"" + encodeURI(rid) + "\",\"status\":\"" + encodeURI(status) + "\"}";
+			
+
+			$.ajax({
+
+				type: "POST",
+				url: webMethod,
+				data: parameters,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function () {
+					alert("Updated Request");
+					
+		
+				},
+				error: function (e) {
+					alert("failed to update requests.");
+					Location.reload();
+				}
+			});
+
+		}
+
+		function makeRequest(mentor,mentee) {
+			var webMethod = "ProjectServices.asmx/makeRequest";
+			var parameters = "{\"mentor\":\"" + encodeURI(mentor) + "\",\"mentee\":\"" + encodeURI(mentee) + "\"}";
+
+
+			$.ajax({
+
+				type: "POST",
+				url: webMethod,
+				data: parameters,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function () {
+					alert("Request Sent");
+					
+
+				},
+				error: function (e) {
+					alert("failed to update requests.");
+					
+				}
+			});
+
+			
+
+		}
+		
+
+		function assignusers(userarray) {
+			usersArray = userarray;
+			var mentortab = document.getElementById("mentorinfo");
+			var newRow = document.createElement("tr");
+			var uid = document.createElement("td");
+			var username = document.createElement("td");
+			var firstname = document.createElement("td");
+			var lastname = document.createElement("td");
+			var cell5 = document.createElement("td");
+			
+			uid.innerHTML = "UserID";
+			username.innerHTML = "UserAccount";
+			firstname.innerHTML = "FirstName";
+			lastname.innerHTML = "LastName";
+			cell5.innerHTML = "Action";
+			newRow.appendChild(uid);
+			newRow.appendChild(username);
+			newRow.appendChild(firstname);
+			newRow.appendChild(lastname);
+			newRow.appendChild(cell5);
+			mentortab.appendChild(newRow);
+
+
+			for (i = 0; i < usersArray.length; i++) {
+				if (userarray[i].superUser != 1) {
+					var mentortab = document.getElementById("mentorinfo");
+					var newRow = document.createElement("tr");
+					var uid = document.createElement("td");
+					var username = document.createElement("td");
+					var firstname = document.createElement("td");
+					var lastname = document.createElement("td");
+					var cell5 = document.createElement("td");
+					uid.innerHTML = usersArray[i].uid;
+					username.innerHTML = usersArray[i].userName;
+					
+					
+					firstname.innerHTML = usersArray[i].firstName;
+					lastname.innerHTML = usersArray[i].lastName;
+					//var button = document.createElement("input");
+					//button.type = "button";
+					//button.value = "Make Request";
+					
+					//button.addEventListener("click", function () { makeRequest(usersArray[i].userName, "random") })
+					//cell5.appendChild(button);
+					
+					cell5.innerHTML = "<button  onclick='makeRequest(" + usersArray[i].userName + ", \"" + usersArray[i].firstName + "\")'> Make Resuest</button >";
+					
+					
+					newRow.appendChild(uid);
+					newRow.appendChild(username);
+					newRow.appendChild(firstname);
+					newRow.appendChild(lastname);
+					newRow.appendChild(cell5);
+					mentortab.appendChild(newRow);
+				}
+
+			}
+		}
+
+		function assignrequest(requests) {
+			requestArray = requests;
+			var requesttable = document.getElementById("requestinfo");
+			var newRow = document.createElement("tr");
+			var rid = document.createElement("td");
+			var mtoname = document.createElement("td");
+			var mtename = document.createElement("td");
+			var status = document.createElement("td");
+			var cell5 = document.createElement("td");
+			var cell6 = document.createElement("td");
+
+			rid.innerHTML ="RequestNumber"
+			mtoname.innerHTML = "MentorAccount"
+			mtename.innerHTML = "MenteeAccount"
+			status.innerHTML = "Status";
+			cell5.innerHTML = "Action";
+			cell6.innerHTML = "Action";
+		
+
+
+			newRow.appendChild(rid);
+			newRow.appendChild(mtoname);
+			newRow.appendChild(mtename);
+			newRow.appendChild(status);
+			newRow.appendChild(cell5);
+			newRow.appendChild(cell6);
+			requesttable.appendChild(newRow);
+
+			for (i = 0; i < requestArray.length; i++) {
+				var newRow = document.createElement("tr");
+				var rid = document.createElement("td");
+				var mtoname = document.createElement("td");
+				var mtename = document.createElement("td");
+				var status = document.createElement("td");
+				var cell5 = document.createElement("td");
+				var cell6 = document.createElement("td");
+				rid.innerHTML = requestArray[i].rid;
+				mtoname.innerHTML = requestArray[i].mentorName;
+				mtename.innerHTML = requestArray[i].menteeName;
+				if (requestArray[i].status == 1) {
+					status.innerHTML = "accepted";
+
+				}
+				else {
+					status.innerHTML = "Pending";
+					cell5.innerHTML = "<button  onclick='updateRequest(" + requestArray[i].rid + "," + 1 + ")'> Accept</button >"
+
+					cell6.innerHTML = "<button  onclick='updateRequest(" + requestArray[i].rid + "," + 0 + ")'> Decline</button >"
+				}
+
+				newRow.appendChild(rid);
+				newRow.appendChild(mtoname);
+				newRow.appendChild(mtename);
+				newRow.appendChild(status);
+				newRow.appendChild(cell5);
+				newRow.appendChild(cell6);
+				requesttable.appendChild(newRow);
+
+			}
+		}
+
+		function getUser() {
+			var webMethod = "ProjectServices.asmx/getUsers";
+			$.ajax({
+				type: "POST",
+				url: webMethod,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (msg) {
+					if (msg.d.length > 0) {
+						assignusers(msg.d);
+						
+					}
+				},
+				error: function (e) {
+					alert("Error");
+				}
+			});
+
+		
+		}
+		function getRequest() {
+			var webMethod = "ProjectServices.asmx/getRequests";
+			$.ajax({
+				type: "POST",
+				url: webMethod,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (msg) {
+					if (msg.d.length > 0) {
+						assignrequest(msg.d);
+						
+					}
+				},
+				error: function (e) {
+					alert("Error");
+				}
+			});
+		}
+		
+
+
+
+	
+		
+
+	</script>
+</head>
+<body>
+	<button onclick="getUser()">1</button>
+	<button onclick="getRequest()">2</button>
+	<table id="mentorinfo" style="float:left"></table>
+	<table id="requestinfo" style="float:left"></table>
+	<button onclick="makeRequest('dasd','dasd')">dsadas</button>
+</body>
+</html>

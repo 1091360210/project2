@@ -96,6 +96,7 @@
     <Content Include="editProfile.html" />
     <Content Include="ProjectServices.asmx" />
     <Content Include="register.html" />
+    <Content Include="requesthtml.html" />
     <Content Include="script.js" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -163,7 +163,7 @@ function displayPic() {
 }
 
 function updateProfile() {
-    var sessionUsername = getCookie('username');
+	var sessionUsername = getCookie('username');
     alert(sessionUsername);
     let uid = getUid(sessionUsername);
     alert(uid);

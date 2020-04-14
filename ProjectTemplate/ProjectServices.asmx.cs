@@ -213,8 +213,8 @@ namespace ProjectTemplate
         }
 
 
-        [WebMethod(EnableSession = true)]
-        public bool updateProfile(string description, string company, string education, string url, string uid) {
+		[WebMethod(EnableSession = true)]
+		public bool updateProfile(string description, string company, string education, string url, string uid) {
             bool success = false;
             string sqlSelect = "SELECT * FROM Profiles WHERE UID = '" + uid + "'";
             MySqlConnection con = new MySqlConnection(getConString());
@@ -251,7 +251,124 @@ namespace ProjectTemplate
             return success;
         }
 
-    }
+
+		[WebMethod(EnableSession = true)]
+		public User[] getUsers()
+		{
+			//check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
+			//just a container for public class-level variables.  It's a simple container that asp.net will have no trouble converting into json.  When we return
+			//sets of information, it's a good idea to create a custom container class to represent instances (or rows) of that information, and then return an array of those objects.  
+			//Keeps everything simple.
+
+			DataTable sqlDt = new DataTable("users");
+
+
+
+
+			string sqlSelect = "select UID, UserName, FirstName, LastName, Email, SuperUser from Users order by UID";
+
+
+			MySqlConnection con = new MySqlConnection(getConString());
+			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, con);
+
+			//gonna use this to fill a data table
+			MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+			//filling the data table
+			sqlDa.Fill(sqlDt);
+
+			//loop through each row in the dataset, creating instances
+			//of our container class Account.  Fill each acciount with
+			//data from the rows, then dump them in a list.
+			List<User> users = new List<User>();
+			for (int i = 0; i < sqlDt.Rows.Count; i++)
+			{
+				users.Add(new User
+				{
+					uid = Convert.ToInt32(sqlDt.Rows[i]["UID"]),
+					userName = sqlDt.Rows[i]["UserName"].ToString(),
+					firstName = sqlDt.Rows[i]["FirstName"].ToString(),
+					lastName = sqlDt.Rows[i]["LastName"].ToString(),
+					email = sqlDt.Rows[i]["Email"].ToString(),
+					superUser = Convert.ToInt32(sqlDt.Rows[i]["SuperUser"])
+				});
+			}
+			//convert the list of accounts to an array and return!
+			return users.ToArray();
+		}
+
+		[WebMethod(EnableSession = true)]
+		public Requests[] getRequests() {
+			List<Requests> requests = new List<Requests>();
+			DataTable sqlDt = new DataTable("request");
+			string sqlSelect = "select RID, mentorName, menteeName, status from requests order by RID";
+			MySqlConnection con = new MySqlConnection(getConString());
+			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, con);
+			MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+			sqlDa.Fill(sqlDt);
+			for (int i = 0; i < sqlDt.Rows.Count; i++)
+			{
+				requests.Add(new Requests
+				{
+					rid = Convert.ToInt32(sqlDt.Rows[i]["RID"]),
+					mentorName = sqlDt.Rows[i]["mentorName"].ToString(),
+					menteeName = sqlDt.Rows[i]["menteeName"].ToString(),
+					status = Convert.ToInt32(sqlDt.Rows[i]["status"]),
+
+				});
+			}
+
+
+
+
+			return requests.ToArray();
+
+		}
+
+		[WebMethod(EnableSession = true)]
+		public bool updateRequest(int rid, int status) {
+			bool success = false;
+			string sqlstatement;
+			MySqlConnection con = new MySqlConnection(getConString());
+			if (status == 0)
+			{
+				sqlstatement = "Delete from requests WHERE RID = " + rid;
+				MySqlCommand sqlCommand = new MySqlCommand(sqlstatement, con);
+				con.Open();
+				sqlCommand.ExecuteNonQuery();
+				con.Close();
+				success = true;
+			}
+			else {
+				sqlstatement = "UPDATE requests SET status ='" + status + "' WHERE RID ='" + rid +"'" ;
+				MySqlCommand sqlCommand = new MySqlCommand(sqlstatement, con);
+				con.Open();
+				sqlCommand.ExecuteNonQuery();
+				con.Close();
+				success = true;
+			}
+			
+			
+			return success;
+
+		}
+
+		[WebMethod(EnableSession = true)]
+		public bool makeRequest(string mentor, string mentee) {
+			bool success = true;
+			MySqlConnection con = new MySqlConnection(getConString());
+			string sqlInsert = "INSERT INTO requests(`RID`,`mentorName`,`menteeName`,`status`) Values(default,'" + mentor + "','"
+					+ mentee + "','"  + null + "')";
+			MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, con);
+			con.Open();
+			sqlCommand.ExecuteNonQuery();
+			con.Close();
+
+			return success;
+
+
+		}
+	}
+
 }
             
 
