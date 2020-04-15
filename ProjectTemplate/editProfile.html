@@ -3,28 +3,49 @@
 <head>
     <meta charset="utf-8" />
     <title>Edit Your Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link href="project2Style.css" rel="stylesheet" type="text/css">
+
     <script src="script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body onload="">
+    <div class="editProfileContainer">
+        <div class="logo"> </div>
+        <div class="container">
+            <h1>Edit Your Profile</h1>
+            <form action="" method="post">
 
-    <div id="personalUser">
-        <input type="text" id="companyName" placeholder="Company Name">
-        <br />
-        <input type="text" id="education" placeholder="Education">
-        <br />
-        <input type="text" id="picture" placeholder="Your picture Link">
-        <br />
-        <textarea id = "description" rows = "3" cols = "80" >Your text here</textarea>
+                <div class="entryInfo">
+                    <input type="text" id="companyName" placeholder=" ">
+                    <span class="placeholder">Company Name</span>
+                </div>
+
+                <div class="entryInfo">
+                    <input type="text" id="education" placeholder=" ">
+                    <span class="placeholder">Education</span>
+                </div>
+
+                <div class="entryInfo">
+                    <input type="text" id="picture" placeholder=" ">
+                    <span class="placeholder">Link to your picture</span>
+                </div>
+
+                <div class="entryInfo">
+                    <input type="text" rows="3" cols="80" placeholder=" ">
+                    <span class="placeholder">Your text here</span>
+                </div>
+
+                <div class="saveBtn">
+                    <button onclick="updateProfile()">Save</button>
+                </div>
+
+            </form>
+        </div>
     </div>
-    <p></p>
-
-
-    <div>
-        <button onclick="updateProfile()">Save</button>
+    <div class="copyright">
+        &copy; 2020
     </div>
-
-
 </body>
 </html>

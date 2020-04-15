@@ -20,7 +20,7 @@ body {
     align-items: center;
 }
 
-.loginForm {
+.loginForm, .editProfileContainer {
     width: 100%;
     max-width: 500px;
 }
@@ -195,7 +195,7 @@ button {
         background: darkred;
     }
 
-.createAccountContainer {
+.createAccountContainer, .editProfileContainer {
     width: 100%;
     max-width: 500px;
     display: inline-block;
