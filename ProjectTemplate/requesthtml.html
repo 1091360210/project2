@@ -2,19 +2,21 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title></title>
+	<title>Mentor Mash</title>
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+	<link href="project2Style.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="script.js"></script>
 	<script>
 		var menteeName = getCookie('username');
 		var usersArray;
 		var requestArray;
-		
+
 
 		function updateRequest(rid, status) {
 			var webMethod = "ProjectServices.asmx/updateRequest";
 			var parameters = "{\"rid\":\"" + encodeURI(rid) + "\",\"status\":\"" + encodeURI(status) + "\"}";
-			
+
 
 			$.ajax({
 
@@ -25,8 +27,8 @@
 				dataType: "json",
 				success: function () {
 					alert("Updated Request");
-					
-		
+
+
 				},
 				error: function (e) {
 					alert("failed to update requests.");
@@ -36,7 +38,7 @@
 
 		}
 
-		function makeRequest(mentor,mentee) {
+		function makeRequest(mentor, mentee) {
 			var webMethod = "ProjectServices.asmx/makeRequest";
 			var parameters = "{\"mentor\":\"" + encodeURI(mentor) + "\",\"mentee\":\"" + encodeURI(mentee) + "\"}";
 
@@ -50,19 +52,19 @@
 				dataType: "json",
 				success: function () {
 					alert("Request Sent");
-					
+
 
 				},
 				error: function (e) {
 					alert("failed to update requests.");
-					
+
 				}
 			});
 
-			
+
 
 		}
-		
+
 
 		function assignusers(userarray) {
 			usersArray = userarray;
@@ -73,7 +75,7 @@
 			var firstname = document.createElement("td");
 			var lastname = document.createElement("td");
 			var cell5 = document.createElement("td");
-			
+
 			uid.innerHTML = "UserID";
 			username.innerHTML = "UserAccount";
 			firstname.innerHTML = "FirstName";
@@ -98,20 +100,20 @@
 					var cell5 = document.createElement("td");
 					uid.innerHTML = usersArray[i].uid;
 					username.innerHTML = usersArray[i].userName;
-					
-					
+
+
 					firstname.innerHTML = usersArray[i].firstName;
 					lastname.innerHTML = usersArray[i].lastName;
 					//var button = document.createElement("input");
 					//button.type = "button";
 					//button.value = "Make Request";
-					
+
 					//button.addEventListener("click", function () { makeRequest(usersArray[i].userName, "random") })
 					//cell5.appendChild(button);
-					
+
 					cell5.innerHTML = "<button  onclick='makeRequest(" + usersArray[i].userName + ", \"" + usersArray[i].firstName + "\")'> Make Resuest</button >";
-					
-					
+
+
 					newRow.appendChild(uid);
 					newRow.appendChild(username);
 					newRow.appendChild(firstname);
@@ -134,13 +136,13 @@
 			var cell5 = document.createElement("td");
 			var cell6 = document.createElement("td");
 
-			rid.innerHTML ="RequestNumber"
+			rid.innerHTML = "RequestNumber"
 			mtoname.innerHTML = "MentorAccount"
 			mtename.innerHTML = "MenteeAccount"
 			status.innerHTML = "Status";
 			cell5.innerHTML = "Action";
 			cell6.innerHTML = "Action";
-		
+
 
 
 			newRow.appendChild(rid);
@@ -194,7 +196,7 @@
 				success: function (msg) {
 					if (msg.d.length > 0) {
 						assignusers(msg.d);
-						
+
 					}
 				},
 				error: function (e) {
@@ -202,7 +204,7 @@
 				}
 			});
 
-		
+
 		}
 		function getRequest() {
 			var webMethod = "ProjectServices.asmx/getRequests";
@@ -214,7 +216,7 @@
 				success: function (msg) {
 					if (msg.d.length > 0) {
 						assignrequest(msg.d);
-						
+
 					}
 				},
 				error: function (e) {
@@ -222,20 +224,29 @@
 				}
 			});
 		}
-		
 
 
 
-	
-		
+
+
+
 
 	</script>
 </head>
 <body>
-	<button onclick="getUser()">1</button>
-	<button onclick="getRequest()">2</button>
-	<table id="mentorinfo" style="float:left"></table>
-	<table id="requestinfo" style="float:left"></table>
-	<button onclick="makeRequest('dasd','dasd')">dsadas</button>
+	<div class="requestHtmlContainer">
+		<div class="logo"> </div>
+		<div class="container">
+			<button onclick="getUser()">1</button>
+			<button onclick="getRequest()">2</button>
+			<table id="mentorinfo" style="float:left"></table>
+			<table id="requestinfo" style="float:left"></table>
+			<button onclick="makeRequest('dasd','dasd')">dsadas</button>
+		</div>
+	</div>
+
+	<div class="copyright">
+		&copy; 2020
+	</div>
 </body>
 </html>
