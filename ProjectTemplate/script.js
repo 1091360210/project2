@@ -135,8 +135,7 @@ function getUid(uName) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-            uid = msg.d;
-            alert(uid);
+            uid = msg.d;          
              
             
         },
@@ -163,7 +162,7 @@ function displayPic() {
 }
 
 function updateProfile() {
-	var sessionUsername = getCookie('username');
+    var sessionUsername = getCookie('username');
     alert(sessionUsername);
     let uid = getUid(sessionUsername);
     alert(uid);
