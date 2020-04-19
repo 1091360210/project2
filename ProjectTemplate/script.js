@@ -107,9 +107,7 @@ function getProfiles() {
         success: function (msg) {
             if (msg.d.length > 0) {
                 profilesArray = msg.d;
-                console.log(profilesArray);
-                console.log(1);
-            }
+                
         },
         error: function (e) {
             alert("Error");

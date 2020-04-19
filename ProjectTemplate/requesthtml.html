@@ -11,7 +11,7 @@
 		var menteeName = getCookie('username');
 		var usersArray;
 		var requestArray;
-
+        var profilesArray;
 
 		function updateRequest(rid, status) {
 			var webMethod = "ProjectServices.asmx/updateRequest";
@@ -70,55 +70,56 @@
 			usersArray = userarray;
 			var mentortab = document.getElementById("mentorinfo");
 			var newRow = document.createElement("tr");
-			var uid = document.createElement("td");
-			var username = document.createElement("td");
-			var firstname = document.createElement("td");
-			var lastname = document.createElement("td");
-			var cell5 = document.createElement("td");
+			var uid = document.createElement("th");
+			var username = document.createElement("th");
+			var firstname = document.createElement("th");
+			var lastname = document.createElement("th");
+            var cell5 = document.createElement("th");
+            var cell6 = document.createElement("th");
 
 			uid.innerHTML = "UserID";
 			username.innerHTML = "UserAccount";
 			firstname.innerHTML = "FirstName";
-			lastname.innerHTML = "LastName";
-			cell5.innerHTML = "Action";
+            lastname.innerHTML = "LastName";
+            cell5.innerHTML = "CompanyName";
+			cell6.innerHTML = "Action";
 			newRow.appendChild(uid);
 			newRow.appendChild(username);
 			newRow.appendChild(firstname);
-			newRow.appendChild(lastname);
-			newRow.appendChild(cell5);
+            newRow.appendChild(lastname);
+            newRow.appendChild(cell5)
+			newRow.appendChild(cell6);
 			mentortab.appendChild(newRow);
 
 
 			for (i = 0; i < usersArray.length; i++) {
-				if (userarray[i].superUser != 1) {
+                if (userarray[i].superUser != 1) {
 					var mentortab = document.getElementById("mentorinfo");
 					var newRow = document.createElement("tr");
 					var uid = document.createElement("td");
 					var username = document.createElement("td");
 					var firstname = document.createElement("td");
 					var lastname = document.createElement("td");
-					var cell5 = document.createElement("td");
+                    var cell5 = document.createElement("td");
+                    var cell6 = document.createElement("td");
 					uid.innerHTML = usersArray[i].uid;
-					username.innerHTML = usersArray[i].userName;
-
-
+					username.innerHTML = usersArray[i].userName;     
 					firstname.innerHTML = usersArray[i].firstName;
-					lastname.innerHTML = usersArray[i].lastName;
-					//var button = document.createElement("input");
-					//button.type = "button";
-					//button.value = "Make Request";
-
-					//button.addEventListener("click", function () { makeRequest(usersArray[i].userName, "random") })
-					//cell5.appendChild(button);
-
-                    cell5.innerHTML = "<button  onclick='makeRequest(\"" + usersArray[i].userName + "\", \"" + menteeName + "\")'> Make Resuest</button >";
+                    lastname.innerHTML = usersArray[i].lastName;
+                    for (z = 0; z < profilesArray.length; z++) {
+                        if (userarray[i].uid == profilesArray[z].uid) {
+                            cell5.innerHTML = profilesArray[z].companyName;
+                        }
+                    }
+                    cell6.innerHTML = "<button  onclick='makeRequest(\"" + usersArray[i].userName + "\", \"" + menteeName + "\")'> Make Resuest</button >";
 
 
 					newRow.appendChild(uid);
 					newRow.appendChild(username);
 					newRow.appendChild(firstname);
-					newRow.appendChild(lastname);
-					newRow.appendChild(cell5);
+                    newRow.appendChild(lastname);
+                    newRow.appendChild(cell5);
+					newRow.appendChild(cell6);
 					mentortab.appendChild(newRow);
 				}
 
@@ -214,7 +215,8 @@
 		}
 
 		function getUser() {
-			var webMethod = "ProjectServices.asmx/getUsers";
+            var webMethod = "ProjectServices.asmx/getUsers";
+            getProfiles();
 			$.ajax({
 				type: "POST",
 				url: webMethod,
@@ -229,8 +231,8 @@
 				error: function (e) {
 					alert("Error");
 				}
-			});
-
+            });
+           
 
 		}
 		function getRequest() {
@@ -252,7 +254,27 @@
 			});
 		}
 
+        function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("Key");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("mentorinfo");
+            tr = table.getElementsByTagName("tr");
 
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[4];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
 
 
 
@@ -264,8 +286,9 @@
 	<div class="requestHtmlContainer">
 		<div class="logo"> </div>
 		<div class="container">
-			<button onclick="getUser()">1</button>
-			<button onclick="getRequest()">2</button>
+			<button onclick="getUser()">See all users</button>
+			<button onclick="getRequest()">See your reqauests</button>
+            <input type="text" id="Key" onkeyup="myFunction()" placeholder="search people by company name" style="float:left">
 			<table id="mentorinfo" style="float:left"></table>
 			<table id="requestinfo" style="float:left"></table>
 			<button onclick="makeRequest('dasd','dasd')">dsadas</button>

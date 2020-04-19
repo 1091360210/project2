@@ -178,10 +178,10 @@ namespace ProjectTemplate
                 profiles.Add(new Profile
                 {  
                     pid = Convert.ToInt32(sqlDt.Rows[i]["PID"]),
-                    companyName = sqlDt.Rows[i]["description"].ToString(),
-                    education = sqlDt.Rows[i]["company_name"].ToString(),
-                    picture = sqlDt.Rows[i]["education"].ToString(),
-                    description = sqlDt.Rows[i]["profile_pic"].ToString(),
+                    companyName = sqlDt.Rows[i]["company_name"].ToString(),
+                    education = sqlDt.Rows[i]["education"].ToString(),
+                    picture = sqlDt.Rows[i]["profile_pic"].ToString(),
+                    description = sqlDt.Rows[i]["description"].ToString(),
                     uid = Convert.ToInt32(sqlDt.Rows[i]["UID"])
                 });
             }
