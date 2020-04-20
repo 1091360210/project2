@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<title>Mentor Mash</title>
 	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-	<link href="project2Style.css" rel="stylesheet" type="text/css">
+	<link href="project2StyleRequestHtml.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="script.js"></script>
 	<script>
@@ -286,12 +286,14 @@
 	<div class="requestHtmlContainer">
 		<div class="logo"> </div>
 		<div class="container">
-			<button onclick="getUser()">See all users</button>
-			<button onclick="getRequest()">See your reqauests</button>
-            <input type="text" id="Key" onkeyup="myFunction()" placeholder="search people by company name" style="float:left">
-			<table id="mentorinfo" style="float:left"></table>
-			<table id="requestinfo" style="float:left"></table>
-			<button onclick="makeRequest('dasd','dasd')">dsadas</button>
+            <h1>What would you like to do?
+				<button onclick="getUser()">See all users</button>
+				<button onclick="getRequest()">See your requests</button>
+				<input class="searchBox" type="text" id="Key" onkeyup="myFunction()" placeholder="Search people by company name" /> <!--style="float:left">-->
+			</h1>
+				<table id="mentorinfo"> <!--style="float:left">--></table>
+				<table id="requestinfo"> <!--style="float:left">--></table>
+				<!--<button onclick="makeRequest('dasd','dasd')">dsadas</button>-->
 		</div>
 	</div>
 
