@@ -35,4 +35,13 @@ namespace ProjectTemplate
 		public string menteeName;
 		public int status;
 	}
+
+    public class Evaluations
+    {
+        public int mentorID;
+        public int menteeID;
+        public string comments;
+        public int rating;
+        public int recommendation;
+    }
 }
