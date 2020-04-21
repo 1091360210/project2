@@ -4,6 +4,7 @@ var testPass = "test";
 
 var sessionUsername = "";
 var profilesArray;
+var evaluationsArray;
 
 
 
@@ -107,12 +108,50 @@ function getProfiles() {
         success: function (msg) {
             if (msg.d.length > 0) {
                 profilesArray = msg.d;
+            }
                 
         },
         error: function (e) {
             alert("Error");
         }
     });
+}
+
+// get evaluations
+function getEvaluations() {
+    var webMethod = "ProjectServices.asmx/getEvaluations";
+    $.ajax({
+        type: "POST",
+        url: webMethod,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            if (msg.d.length > 0) {
+                evaluationsArray = msg.d;
+            }
+
+        },
+        error: function (e) {
+            alert("Error");
+        }
+    });
+}
+
+function getAverageRating() {
+    getEvaluations();
+    let avgRating = 0;
+    let count = 0;
+    let total = 0;
+    let uid = 30;
+    for (let i = 0; i < evaluationsArray.length; i++) {
+        if (evaluationsArray[i].mentorID == uid) {
+            count++;
+            total += evaluationsArray[i].rating;
+        }
+    }
+    avgRating = total / count;
+    return avgRating.toFixed(2) + " / 5";
+
 }
 
 function logOff() {
