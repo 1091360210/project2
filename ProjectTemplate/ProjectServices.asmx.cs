@@ -368,7 +368,67 @@ namespace ProjectTemplate
 
 
 		}
-	}
+
+
+        [WebMethod(EnableSession = true)]
+        public bool submitEvaluation(string mentorID, string menteeID, string comments, int rating, int recommendation)
+        {
+
+            string sqlInsert = "INSERT INTO Evaluations(`mentorID`,`menteeID`,`comments`,`rating`,`recommendation`) Values('" + mentorID + "','"
+                + menteeID + "','" + comments + "'," + rating + " ," + recommendation + ")";
+
+            MySqlConnection con2 = new MySqlConnection(getConString());
+            MySqlCommand sqlCommand2 = new MySqlCommand(sqlInsert, con2);
+            //a data adapter acts like a bridge between our command object and 
+            //the data we are trying to get back and put in a table object
+            con2.Open();
+            sqlCommand2.ExecuteNonQuery();
+            con2.Close();
+
+            return true;
+
+
+        }
+
+
+        [WebMethod(EnableSession = true)]
+        public Evaluations[] getEvaluations()
+        {
+            DataTable sqlDt = new DataTable("evaluations");
+
+            string sqlSelect = "select mentorID, menteeID, comments, rating, recommendation from Evaluations order by mentorID";
+
+            MySqlConnection con = new MySqlConnection(getConString());
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, con);
+
+            //gonna use this to fill a data table
+            MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+            //filling the data table
+            sqlDa.Fill(sqlDt);
+
+            //loop through each row in the dataset, creating instances
+            //of our container class Account.  Fill each acciount with
+            //data from the rows, then dump them in a list.
+            List<Evaluations> evaluations = new List<Evaluations>();
+            for (int i = 0; i < sqlDt.Rows.Count; i++)
+            {
+                evaluations.Add(new Evaluations
+                {
+                    mentorID = Convert.ToInt32(sqlDt.Rows[i]["mentorID"]),
+                    menteeID = Convert.ToInt32(sqlDt.Rows[i]["menteeID"]),
+                    comments = sqlDt.Rows[i]["comments"].ToString(),
+                    rating = Convert.ToInt32(sqlDt.Rows[i]["rating"]),
+                    recommendation = Convert.ToInt32(sqlDt.Rows[i]["recommendation"])
+                });
+            }
+            //convert the list of accounts to an array and return!
+
+
+
+            return evaluations.ToArray();
+        }
+
+    }
 
 }
             
