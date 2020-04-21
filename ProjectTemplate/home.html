@@ -13,20 +13,44 @@
 
     </script>
 </head>
-<body onload="getProfiles(), displayPic()">
+<body onload="getProfiles(), getEvaluations()">
     <div class="homeContainer">
         <div class="logo"> </div>
         <div class="container">
             <h1>Welcome to Mentor Mash</h1>
             <!--<form action="" method="post">-->
 
+                <button class="editBtn" type="submit" onclick="window.location.href = 'editProfile.html';">Edit Profile</button>
+                <!--<a href="editProfile.html">Edit your Profile</a>-->
+
+                <button class="requestBtn" type="submit" onclick="window.location.href = 'requesthtml.html';">View Requests</button>
+                <!--<a href="requesthtml.html">View your mentorship requests</a>-->
+
+                <!--<a href="evaluations.html">Evaluate</a>-->
+                <button class="evalBtn" type="submit" onclick="window.location.href = 'evaluations.html';">Evaluate</button>
+
+                <button onclick="alert(getAverageRating())">See Rating</button>
+                <button onclick="logOff()">Log Out</button>
+                
 
             <nav>
-                <img id="PicUrl" src="#" alt="Image in your Profile" />
-                <a href="editProfile.html">Edit your Profile</a>
-                <a href="requesthtml.html">View your mentorship requests</a>
-              
+                <br />
+                <img id="PicUrl" src="Facebook-contact-icon.jpg" alt="Image in your Profile" />
             </nav>
+            <div class="aboutUs">
+                <b>About us:</b> Mentor Mash is an online designation to find mentors to connect with.
+                Through this platform, users can trust the user-generated content to connect with mentors & mentees,
+                building a meaningful and engaging mentorship experience. Users can filter through company mentors or
+                join the general mentor network. Mentor Mash is available globally and enables the learning culture
+                between professionals.
+            </div>
+
+            <div class="contactUs">
+                <b>Contact Us:</b><br />contact@mentormash.com
+                <br />(855) 278-5080
+
+
+            </div>
             <!--</form>-->
         </div>
     </div>

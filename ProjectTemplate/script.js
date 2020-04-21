@@ -183,30 +183,30 @@ function getUid(uName) {
     return uid;
 }
 
-function displayPic() {
-    var sessionUsername = getCookie('username');
-    var element = document.getElementById("PicUrl");
-    let uid = getUid(sessionUsername);
+//function displayPic() {
+//    var sessionUsername = getCookie('username');
+//    var element = document.getElementById("PicUrl");
+//    let uid = getUid(sessionUsername);
     
     
 
 
-    for (var i = 0; i < profilesArray.length; i++) {
-        if (uid == profilesArray[i].uid) {
-            element.src = profilesArray[i].url;
-        }
-    }
-}
+//    for (var i = 0; i < profilesArray.length; i++) {
+//        if (uid == profilesArray[i].uid) {
+//            element.src = profilesArray[i].url;
+//        }
+//    }
+//}
 
 function updateProfile() {
     var sessionUsername = getCookie('username');
-    alert(sessionUsername);
+    //alert(sessionUsername);
     let uid = getUid(sessionUsername);
-    alert(uid);
+    //alert(uid);
     var webMethod = "ProjectServices.asmx/updateProfile";
     var parameters = "{\"description\":\"" + encodeURI(document.getElementById("description").value) + "\",\"company\":\"" + encodeURI(document.getElementById("companyName").value) +
         "\",\"education\":\"" + encodeURI(document.getElementById("education").value) + "\",\"url\":\"" + encodeURI(document.getElementById("picture").value) + "\",\"uid\":\"" + encodeURI(uid) + "\"}";
-    alert(parameters);
+    //alert(parameters);
 
     $.ajax({
 

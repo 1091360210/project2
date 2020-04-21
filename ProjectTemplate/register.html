@@ -13,7 +13,7 @@
             var webMethod = "ProjectServices.asmx/NAccount";
             var parameters = "{\"fName\":\"" + encodeURI(fName) + "\",\"lName\":\"" + encodeURI(lName) +
                 "\",\"email\":\"" + encodeURI(email) + "\",\"uName\":\"" + encodeURI(uName) + "\",\"pwd\":\"" + encodeURI(pwd) + "\",\"supUse\":\"" + encodeURI(supUse) + "\"}";
-            window.alert(parameters);
+            //window.alert(parameters);
             $.ajax({
                 type: "POST",
                 url: webMethod,

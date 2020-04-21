@@ -13,7 +13,7 @@
             var webMethod = "ProjectServices.asmx/submitEvaluation";
             var parameters = "{\"mentorID\":\"" + encodeURI(mentorID) + "\",\"menteeID\":\"" + encodeURI(menteeID) +
                 "\",\"comments\":\"" + encodeURI(comments) + "\",\"rating\":\"" + encodeURI(rating) + "\",\"recommendation\":\"" + encodeURI(recommendation) + "\"}";
-            window.alert(parameters);
+            //window.alert(parameters);
             $.ajax({
                 type: "POST",
                 url: webMethod,

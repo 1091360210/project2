@@ -41,9 +41,12 @@
             
             
             var webMethod = "ProjectServices.asmx/updateProfile";
-            var parameters = "{\"description\":\"" + encodeURI(document.getElementById("description").value) + "\",\"company\":\"" + encodeURI(document.getElementById("companyName").value) +
-                "\",\"education\":\"" + encodeURI(document.getElementById("education").value) + "\",\"url\":\"" + encodeURI(document.getElementById("picture").value) + "\",\"uid\":\"" + encodeURI(id) + "\"}";
-            alert(parameters);
+            var parameters = "{\"description\":\"" + encodeURI(document.getElementById("description").value) +
+                "\",\"company\":\"" + encodeURI(document.getElementById("companyName").value) +
+                "\",\"education\":\"" + encodeURI(document.getElementById("education").value) +
+                "\",\"url\":\"" + encodeURI(document.getElementById("picture").value) +
+                "\",\"uid\":\"" + encodeURI(id) + "\"}";
+            //alert(parameters);
             
             $.ajax({
 
@@ -69,7 +72,8 @@
     <div class="editProfileContainer">
         <div class="logo"> </div>
         <div class="container">
-            <h1>Edit Your Profile</h1>
+            <h1>Edit Your Profile
+            </h1>
             <!--<form action="" method="post">-->
 
                 <div class="entryInfo">
@@ -82,10 +86,10 @@
                     <span class="placeholder">Education</span>
                 </div>
 
-                <div class="entryInfo">
+                <!--<div class="entryInfo">
                     <input type="text" id="picture" placeholder=" ">
                     <span class="placeholder">Link to your picture</span>
-                </div>
+                </div>-->
 
                 <div class="entryInfo">
                     <input type="text" id="description" rows="3" cols="80" placeholder=" ">
@@ -94,6 +98,9 @@
 
                 <div class="saveBtn">
                     <button onclick="updateProfile()">Save</button>
+                    <!--<button href="home.html">Home</button>-->
+                    <br /><br /><button type="submit" onclick="window.location.href = 'home.html';" >Home</button>
+
                 </div>
 
             <!--</form>-->
