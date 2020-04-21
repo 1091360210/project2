@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link href="project2Style.css" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function submitEvaluation(mentorID, menteeID, comments, rating, recommendation) {
+            var webMethod = "ProjectServices.asmx/submitEvaluation";
+            var parameters = "{\"mentorID\":\"" + encodeURI(mentorID) + "\",\"menteeID\":\"" + encodeURI(menteeID) +
+                "\",\"comments\":\"" + encodeURI(comments) + "\",\"rating\":\"" + encodeURI(rating) + "\",\"recommendation\":\"" + encodeURI(recommendation) + "\"}";
+            window.alert(parameters);
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var responseFromServer = msg.d;
+                    if (responseFromServer == true) {
+                        alert("Evaluation Submitted");
+                        window.open("home.html", "_self");
+                    }
+                    else {
+                        alert("Failed");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                }
+            })
+        }
+
+        var mentorID = 30;
+        var menteeID = 29;
+        var rating;
+        var comment;
+        var recommendation;
+
+        function getRating() {
+            var ele = document.getElementsByName('rating');
+
+            for (i = 0; i < ele.length; i++) {
+                if (ele[i].checked)
+                    rating = parseInt(ele[i].value);
+            }
+        }
+
+        function getRecommendation() {
+            var ele = document.getElementsByName('rec');
+
+            for (i = 0; i < ele.length; i++) {
+                if (ele[i].checked)
+                    recommendation = parseInt(ele[i].value);
+            }
+        } 
+
+
+    </script>
+
+</head>
+<body>
+    <!--<div class="titleContainer"></div>-->
+    <div class="createAccountContainer">
+        <div class="logo"> </div>
+        <div class="container">
+            <h1>Evaluate your Mentor!</h1>
+            <!--<form action="" method="post">-->
+
+            <div class="entryInfo">
+                <input type="text" id="comments" placeholder=" ">
+                <span class="placeholder">Comments for mentor</span>
+            </div>
+
+
+            <div class="rating">
+                <p>Choose a rating!</p>
+                <input type="radio" id="1" name="rating" value="1" onclick="getRating();">
+                <label for="1">1 Star</label><br>
+                <input type="radio" id="2" name="rating" value="2" onclick="getRating();">
+                <label for="2">2 Stars</label><br>
+                <input type="radio" id="3" name="rating" value="3" onclick="getRating();">
+                <label for="3">3 Stars</label><br />
+                <input type="radio" id="4" name="rating" value="4" onclick="getRating();">
+                <label for="4">4 Stars</label><br />
+                <input type="radio" id="5" name="rating" value="5" onclick="getRating();">
+                <label for="5">5 Stars</label>
+
+            </div>
+
+            <div class="recommendation">
+                <br />
+                <p>Do You Recommend this Mentor?</p>
+                <input type="radio" id="no" name="rec" value="0" onclick="getRecommendation();">
+                <label for="no">No</label><br>
+                <input type="radio" id="yes" name="rec" value="1" onclick="getRecommendation();">
+                <label for="yes">Yes</label>
+
+            </div>
+
+
+            <div>
+                <button onclick="submitEvaluation(mentorID, menteeID, document.getElementById('comments').value, rating, recommendation);">
+                    Submit Evaluation
+                </button>
+            </div>
+
+            <!--</form>-->
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2020
+    </div>
+</body>
+</html>
