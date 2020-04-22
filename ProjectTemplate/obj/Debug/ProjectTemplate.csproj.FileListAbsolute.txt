@@ -148,3 +148,24 @@ C:\Users\alexi\OneDrive\Desktop\CIS 440\Project2\project2\project2\project2\proj
 C:\Users\alexi\OneDrive\Desktop\CIS 440\Project2\project2\project2\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.csproj.CopyComplete
 C:\Users\alexi\OneDrive\Desktop\CIS 440\Project2\project2\project2\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.dll
 C:\Users\alexi\OneDrive\Desktop\CIS 440\Project2\project2\project2\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.pdb
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\ProjectTemplate.dll.config
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\ProjectTemplate.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\ProjectTemplate.pdb
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\BouncyCastle.Crypto.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\Google.Protobuf.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\MySql.Data.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\Newtonsoft.Json.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\System.Net.Http.Formatting.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\System.Web.Http.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\System.Web.Http.WebHost.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\Google.Protobuf.xml
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\MySql.Data.xml
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\Newtonsoft.Json.xml
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\System.Net.Http.Formatting.xml
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\System.Web.Http.xml
+C:\Users\Brandon\project2\project2\ProjectTemplate\bin\System.Web.Http.WebHost.xml
+C:\Users\Brandon\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.csprojAssemblyReference.cache
+C:\Users\Brandon\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.csproj.CoreCompileInputs.cache
+C:\Users\Brandon\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.csproj.CopyComplete
+C:\Users\Brandon\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.dll
+C:\Users\Brandon\project2\project2\ProjectTemplate\obj\Debug\ProjectTemplate.pdb

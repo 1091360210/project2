@@ -214,7 +214,7 @@ namespace ProjectTemplate
 
 
 		[WebMethod(EnableSession = true)]
-		public bool updateProfile(string description, string company, string education, string url, string uid) {
+		public bool updateProfile(string description, string company, string education, string uid) {
             bool success = false;
             string sqlSelect = "SELECT * FROM Profiles WHERE UID = '" + uid + "'";
             MySqlConnection con = new MySqlConnection(getConString());
@@ -225,7 +225,7 @@ namespace ProjectTemplate
             if (sqlDt.Rows.Count > 0) {
                 //UPDATE t SET lastname = 'Alfred Schmidt', password = '123' WHERE firstname = 'Pramod';
                 string sqlUpdate = "UPDATE Profiles SET description='" + description + "', company_name='" + company + "', education='" + 
-                                education + "', profile_pic='" + url + "' WHERE UID=@val1;";
+                                education + "' WHERE UID=@val1;";
 
                 MySqlConnection con3 = new MySqlConnection(getConString());
                 MySqlCommand sqlCommand3 = new MySqlCommand(sqlUpdate, con3);
@@ -237,8 +237,8 @@ namespace ProjectTemplate
             }
             else {
         
-                string sqlInsert = "INSERT INTO Profiles(`PID`,`description`,`company_name`,`education`,`profile_pic`,`UID`) Values(default, '" + description + "', '"
-                     + company + "','" + education + "','" + url + "','" + uid + "')";
+                string sqlInsert = "INSERT INTO Profiles(`PID`,`description`,`company_name`,`education`,`UID`) Values(default, '" + description + "', '"
+                     + company + "','" + education + "','" + uid + "')";
                 MySqlConnection con2 = new MySqlConnection(getConString());
                 MySqlCommand sqlCommand2 = new MySqlCommand(sqlInsert, con2);
                 con2.Open();
